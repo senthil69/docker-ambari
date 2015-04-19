@@ -26,13 +26,35 @@ Follow the description at the docker [getting started](https://www.docker.io/get
 **Note:** If you are using `boot2docker` make sure you forward all ports from docker:
 http://docs.docker.io/en/latest/installation/mac/#forwarding-vm-port-range-to-host
 
+## Setup SSH Keys
+Ambari requires SSH keys to setup Hadoop in each container. After the seutp, you may also want to login 
+into the container to check what is going on. Hence generate ssh keys using 
+
+...
+ssh-keygen 
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/devisenthil/.ssh/id_rsa): ./id_rsa
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in ./id_rsa.
+Your public key has been saved in ./id_rsa.pub.
+The key fingerprint is:
+...
+
+Leave password empty. The private and public keys are generated in current directory. 
+After generating the private/public key, you can build using
+...
+ sudo docker build -t ambari:1.7.0 .
+...
+
+
 ## Starting the container
 
 This will start (and download if you never used it before) an image based on
 centos-6 with preinstalled Ambari 1.7.0 ready to install HDP 2.2.
 
 ```
-docker run -d -P -h amb0.mycorp.kom -e KEYCHAIN=<keychain@email> --name amb0  sequenceiq/ambari --tag ambari-server=true
+docker run -d -P -h amb0.mycorp.kom  --name amb0  sequenceiq/ambari --tag ambari-server=true
 ```
 
 The explanation of the parameters:

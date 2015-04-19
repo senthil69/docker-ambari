@@ -17,7 +17,12 @@ ADD serf /usr/local/serf
 # instead of starting the docker file FROM sequenceiq/ssh:
 RUN yum install -y curl
 RUN curl -L https://api.github.com/repos/sequenceiq/docker-ssh/tarball/master|tar -xz -C /usr/local/serf --strip-components=2 --touch \*/serf
-RUN curl -L https://raw.githubusercontent.com/sequenceiq/docker-ssh/master/install-ssh.sh | bash
+# Setup our own private keys to login into container.Note You need to genrerate own private/public key pair at this directory 
+RUN yum install -y openssh-server openssh-clients
+ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
+ADD id_rsa  /root/.ssh/id_rsa.
+ADD id_rsa.pub  /root/.ssh/authorized_keys
+
 
 # fix annoying PAM error 'couldnt open session'
 RUN sed -i "/pam_limits/ s/^/#/" /etc/pam.d/*
@@ -57,6 +62,6 @@ VOLUME /var/log
 # increase agent timeout
 RUN sed -i "s/agent.task.timeout=900/agent.task.timeout=2000/" /etc/ambari-server/conf/ambari.properties
 
-EXPOSE 8080
+EXPOSE 8080 22
 ENTRYPOINT ["/usr/local/serf/bin/start-serf-agent.sh"]
 CMD ["--log-level", "debug"]
