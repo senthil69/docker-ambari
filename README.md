@@ -43,10 +43,10 @@ The key fingerprint is:
 
 Leave password empty. The private and public keys are generated in current directory. 
 After generating the private/public key, you can build using
+
 ...
  sudo docker build -t ambari:1.7.0 .
 ...
-
 
 ## Starting the container
 
@@ -93,3 +93,14 @@ For the multi node Hadoop cluster instructions please read our [blog](http://blo
 ```
 curl -Lo .amb j.mp/docker-ambari && . .amb && amb-deploy-cluster
 ```
+
+
+## Alternate method 
+
+...
+sudo docker rm amb0
+sudo docker run -d -p 8080:8080 -p 2222:22  -h ec2-52-12-235-16.us-west-2.compute.amazonaws.com  --name amb0  -v /mnt/d3:/d3 -v /mnt/d4:/d4  ambari:1.1 --tag ambari-server=true
+sudo docker ps
+sudo  docker run -e BLUEPRINT=single-node-hdfs-yarn --link amb0:ambariserver -t --rm --entrypoint /bin/sh sequenceiq/ambari-shell -c /tmp/install-cluster.sh
+...                                                                                                         
+~                                                                                                           
