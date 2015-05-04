@@ -7,13 +7,15 @@ MAINTAINER Senthil
 
 ADD ambari.repo /etc/yum.repos.d/
 RUN yum install -y ambari-server ambari-agent
-RUN yum install -y tar git curl  openssh-server openssh-client 
+RUN yum install -y tar git curl which ntp openssh-server openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel
 ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
 ADD id_rsa  /root/.ssh/id_rsa
 ADD id_rsa.pub  /root/.ssh/authorized_keys
 RUN sed -i "/pam_limits/ s/^/#/" /etc/pam.d/*
 ADD hdp.repo /etc/yum.repos.d/
 
+ADD start-daemon.sh /tmp/start-daemon.sh
+ENV JAVA_HOME /usr
 EXPOSE 22 8080 5005
 
 #RUN ambari-server setup --silent
