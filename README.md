@@ -1,23 +1,5 @@
 # Ambari on Docker
 
-This projects aim is to help you to get started with ambari. The 2 easiest way
-to have an ambari server:
-
-- start an ec2 instance
-- start a virtual instance on your dev box
-
-Amazon is getting cheaper and cheaper, so its absolutely reasonable to spend the
-price of a cappuccino to try ambari on EC22. But sometimes you want it for 'free'
-or for whatever reason you don't want to use AWS.
-
-You could go than for a virtual instance, and the use `virtualbox` or `vmware`,
-but Docker has some benefits:
-
-- starting containers under a second
-- taking snapshots, its freaking quick (its just settinga label)
-- snapshots are cheap, thanks to the layering nature of the underlaying aufs
-- memory management is easier, as docker is using the same memory as the hosts,
-  while for several virtual instances, you have to declare memory limits one by one
 
 ## Install Docker
 
@@ -45,27 +27,24 @@ Leave password empty. The private and public keys are generated in current direc
 After generating the private/public key, you can build using
 
 ...
- sudo docker build -t ambari:1.7.0 .
+ sudo docker build -t ambari:test .
 ...
 
 ## Starting the container
 
 This will start (and download if you never used it before) an image based on
-centos-6 with preinstalled Ambari 1.7.0 ready to install HDP 2.2.
+centos-6 with preinstalled Ambari 2.0.0 ready to install HDP 2.2.
 
 ```
-docker run -d -P -h amb0.mycorp.kom  --name amb0  sequenceiq/ambari --tag ambari-server=true
+sudo docker run --privileged -h amb.aws.com -t -i -p 8080:8080  -p 2222:22 -v /mnt/d2:/d2 ambari:test /bin/bash
+
 ```
 
 The explanation of the parameters:
 
-- **-d**: run as daemon
-- **-P**: expose all ports defined in the Dockerfile
+- **-t -i** : interactive mode to start ambari-server
+- **-p**: expose ssh and Ambari WebUI ports defined in the Dockerfile
 - **-h amb0.mycorp.kom**: sets the hostname
-- **--name amb0**: sets the container name to **amb0** (no need to use )
-- **-e KEYCHAIN=<email>** your keychain.io email. Keychain.io is a free service
-  which can store, and serve pulic keys for ssh authentication.
-  You can upload you public key as: `curl -s ssh.keychain.io/<email>/upload | bash`
 
 ## Cluster deployment via blueprint
 

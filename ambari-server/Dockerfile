@@ -16,12 +16,9 @@ ADD hdp.repo /etc/yum.repos.d/
 
 ADD start-daemon.sh /tmp/start-daemon.sh
 ENV JAVA_HOME /usr
+RUN ambari-server setup -j /usr --silent
 EXPOSE 22 8080 5005
 
-#RUN ambari-server setup --silent
-
-#ADD serf /usr/local/serf
-#
 ## instead of starting the docker file FROM sequenceiq/ssh:
 #RUN yum install -y curl
 #RUN curl -L https://api.github.com/repos/sequenceiq/docker-ssh/tarball/master|tar -xz -C /usr/local/serf --strip-components=2 --touch \*/serf
