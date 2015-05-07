@@ -46,13 +46,24 @@ The explanation of the parameters:
 - **-p**: expose ssh and Ambari WebUI ports defined in the Dockerfile
 - **-h amb0.mycorp.kom**: sets the hostname
 
+
+After login , you can start openssh-server and ntp server using the scrip
+```
+sh /tmp/start-daemon.sh
+```
+
+Start ambari server and ambari agent 
+```
+ambari-server start 
+ambari-agent start 
+```
+
+
+
 ## Cluster deployment via blueprint
 
-Once the container is running, you can deploy a cluster. Instead of going to
-the webui, we can use ambari-shell, which can interact with ambari via cli,
-or perform automated provisioning. We will use the automated way, and of
-course there is a docker image, with prepared ambari-shell in it:
-
+The blueprint to create a single node cluster can be found at (https://cwiki.apache.org/confluence/display/AMBARI/Blueprints). However, We noticed that Ambari's ability to select default locations for log does not work with docker. Docker mounts /etc/resolv.conf and Ambari thinks that this mount point can be used for log location. To circumvent the problem,I created the cluster using WebUI and finetuned the parameters and took snapshot. Ambari twiki mentioned above has instructions to take snapshot of the blueprint
+ 
 ```
 docker run -e BLUEPRINT=single-node-hdfs-yarn --link amb0:ambariserver -t --rm --entrypoint /bin/sh sequenceiq/ambari-shell -c /tmp/install-cluster.sh
 ```
