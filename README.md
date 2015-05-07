@@ -65,32 +65,3 @@ ambari-agent start
 The blueprint to create a single node cluster can be found at (https://cwiki.apache.org/confluence/display/AMBARI/Blueprints). However, We noticed that Ambari's ability to select default locations for log does not work with docker. Docker mounts /etc/resolv.conf and Ambari thinks that this mount point can be used for log location. To circumvent the problem,I created the cluster using WebUI and finetuned the parameters and took snapshot. Ambari twiki mentioned above has instructions to take snapshot of the blueprint
  
 ```
-docker run -e BLUEPRINT=single-node-hdfs-yarn --link amb0:ambariserver -t --rm --entrypoint /bin/sh sequenceiq/ambari-shell -c /tmp/install-cluster.sh
-```
-
-Ambari-shell uses Ambari's new [Blueprints](https://cwiki.apache.org/confluence/display/AMBARI/Blueprints)
-capability. It just simple posts a cluster definition JSON to the ambari REST api,
-and 1 more json for cluster creation, where you specify which hosts go
-to which hostgroup.
-
-Ambari shell will show the progress in the upper right corner.
-So grab a cup coffee, and after about 10 minutes, you have a ready HDP 2.2 cluster.
-
-## Multi-node Hadoop cluster
-
-For the multi node Hadoop cluster instructions please read our [blog](http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/) entry or run this one-liner:
-
-```
-curl -Lo .amb j.mp/docker-ambari && . .amb && amb-deploy-cluster
-```
-
-
-## Alternate method 
-
-...
-sudo docker rm amb0
-sudo docker run -d -p 8080:8080 -p 2222:22  -h ec2-52-12-235-16.us-west-2.compute.amazonaws.com  --name amb0  -v /mnt/d3:/d3 -v /mnt/d4:/d4  ambari:1.1 --tag ambari-server=true
-sudo docker ps
-sudo  docker run -e BLUEPRINT=single-node-hdfs-yarn --link amb0:ambariserver -t --rm --entrypoint /bin/sh sequenceiq/ambari-shell -c /tmp/install-cluster.sh
-...                                                                                                         
-~                                                                                                           
