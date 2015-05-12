@@ -18,6 +18,13 @@ ADD start-daemon.sh /tmp/start-daemon.sh
 ENV JAVA_HOME /usr
 RUN ambari-server setup -j /usr --silent
 EXPOSE 22 8080 5005
+#Accumula Ports
+EXPOSE 9999 9997 50091 50095 4560 12234 42424 10002 10001 
+#HDFS
+EXPOSE 50070 50470 8020 9000 50075 50475 50010 50020 50090 
+#MAP reduce
+EXPOSE 10020 19888 13562 
+
 
 ## instead of starting the docker file FROM sequenceiq/ssh:
 #RUN yum install -y curl
