@@ -7,11 +7,11 @@ MAINTAINER Senthil
 
 # Ambari  Repo
 ADD ambari.repo /etc/yum.repos.d/
-ADD hdp.repo /etc/yum.repos.d/
+ADD HDP.repo /etc/yum.repos.d/
 ADD download-deps.sh /tmp/download-deps.sh
 RUN yum install -y tar git curl which ntp openssh-server openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel
-RUN chmod +x /tmp/download-deps.sh
-RUN /tmp/download-deps.sh
+#RUN yum install -y ambari-log4j hadoop hadoop-libhdfs hadoop-lzo hadoop-lzo-native hadoop-mapreduce hadoop-mapreduce-historyserver hadoop_2_2_*-hdfs hadoop_2_2_*-yarn  lzo net-snmp net-snmp-utils snappy snappy-devel unzip zookeeper hbase
+RUN  yum install -y hadoop_2_2_* slider_2_2_* storm_2_2_* hadoop_2_2_*-yarn hadoop_2_2_*-mapreduce snappy snappy-devel hadoop_2_2_*-libhdfs ambari-log4j falcon_2_2_* flume_2_2_* httpd python-rrdtool-1.4.5 libganglia-3.5.0-99 ganglia-devel-3.5.0-99 ganglia-gmetad-3.5.0-99 ganglia-web-3.5.7-99.noarch ganglia-gmond-3.5.0-99 ganglia-gmond-modules-python-3.5.0-99 hbase_2_2_* hive_2_2_* kafka_2_2_* knox_2_2_* extjs oozie_2_2_* pig_2_2_* sqoop_2_2_* tez_2_2_* fping nagios-plugins-1.4.9 nagios-3.5.0-99 nagios-www-3.5.0-99 nagios-devel-3.5.0-99
 RUN yum install -y ambari-agent
 ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
 ADD id_rsa  /root/.ssh/id_rsa
@@ -56,7 +56,6 @@ EXPOSE 3306  8440 8441
 #ADD download-warmup-deps.sh /tmp/
 #RUN chmod +x  /tmp/download-warmup-deps.sh
 #RUN /tmp/download-warmup-deps.sh
-#RUN yum install -y ambari-log4j hadoop hadoop-libhdfs hadoop-lzo hadoop-lzo-native hadoop-mapreduce hadoop-mapreduce-historyserver hadoop-yarn hadoop-yarn-nodemanager hadoop-yarn-proxyserver hadoop-yarn-resourcemanager lzo net-snmp net-snmp-utils snappy snappy-devel unzip zookeeper hbase
 #
 ## add ambari shell to the image so new users don't need the 1GB java image
 #RUN curl -o /tmp/ambari-shell.jar https://s3-eu-west-1.amazonaws.com/maven.sequenceiq.com/releases/com/sequenceiq/ambari-shell/0.1.23/ambari-shell-0.1.23.jar
