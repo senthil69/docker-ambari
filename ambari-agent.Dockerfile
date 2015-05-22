@@ -8,10 +8,8 @@ MAINTAINER Senthil
 # Ambari  Repo
 ADD ambari.repo /etc/yum.repos.d/
 ADD HDP.repo /etc/yum.repos.d/
-ADD download-deps.sh /tmp/download-deps.sh
+#ADD download-deps.sh /tmp/download-deps.sh
 RUN yum install -y tar git curl which ntp openssh-server openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel
-#RUN yum install -y ambari-log4j hadoop hadoop-libhdfs hadoop-lzo hadoop-lzo-native hadoop-mapreduce hadoop-mapreduce-historyserver hadoop_2_2_*-hdfs hadoop_2_2_*-yarn  lzo net-snmp net-snmp-utils snappy snappy-devel unzip zookeeper hbase
-RUN  yum install -y hadoop_2_2_* slider_2_2_* storm_2_2_* hadoop_2_2_*-yarn hadoop_2_2_*-mapreduce snappy snappy-devel hadoop_2_2_*-libhdfs ambari-log4j falcon_2_2_* flume_2_2_* httpd python-rrdtool-1.4.5 libganglia-3.5.0-99 ganglia-devel-3.5.0-99 ganglia-gmetad-3.5.0-99 ganglia-web-3.5.7-99.noarch ganglia-gmond-3.5.0-99 ganglia-gmond-modules-python-3.5.0-99 hbase_2_2_* hive_2_2_* kafka_2_2_* knox_2_2_* extjs oozie_2_2_* pig_2_2_* sqoop_2_2_* tez_2_2_* fping nagios-plugins-1.4.9 nagios-3.5.0-99 nagios-www-3.5.0-99 nagios-devel-3.5.0-99
 RUN yum install -y ambari-agent
 ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
 ADD id_rsa  /root/.ssh/id_rsa
@@ -20,7 +18,7 @@ RUN sed -i "/pam_limits/ s/^/#/" /etc/pam.d/*
 
 ADD start-daemon.sh /tmp/start-daemon.sh
 ENV JAVA_HOME /usr
-EXPOSE 22 8080 5005
+EXPOSE 22 8080 
 #Accumula Ports
 EXPOSE 9999 9997 50091 50095 4560 12234 42424 10002 10001 
 #HDFS
@@ -36,55 +34,5 @@ EXPOSE 60000 60010 60020 60030 8080 8085 9090 9095
 #ZooK 
 EXPOSE 2888 3888 2181 
 #MySQL 
-EXPOSE 3306  8440 8441
+EXPOSE 8440 8441  8670
 
-## instead of starting the docker file FROM sequenceiq/ssh:
-#RUN yum install -y curl
-#RUN curl -L https://api.github.com/repos/sequenceiq/docker-ssh/tarball/master|tar -xz -C /usr/local/serf --strip-components=2 --touch \*/serf
-## Setup our own private keys to login into container.Note You need to genrerate own private/public key pair at this directory 
-#RUN yum install -y openssh-server openssh-clients
-#ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
-#ADD id_rsa  /root/.ssh/id_rsa.
-#ADD id_rsa.pub  /root/.ssh/authorized_keys
-#
-#
-## fix annoying PAM error 'couldnt open session'
-#RUN sed -i "/pam_limits/ s/^/#/" /etc/pam.d/*
-#
-## warm up the image
-#ADD hdp.repo /etc/yum.repos.d/
-#ADD download-warmup-deps.sh /tmp/
-#RUN chmod +x  /tmp/download-warmup-deps.sh
-#RUN /tmp/download-warmup-deps.sh
-#
-## add ambari shell to the image so new users don't need the 1GB java image
-#RUN curl -o /tmp/ambari-shell.jar https://s3-eu-west-1.amazonaws.com/maven.sequenceiq.com/releases/com/sequenceiq/ambari-shell/0.1.23/ambari-shell-0.1.23.jar
-#ADD install-cluster.sh /tmp/
-#ADD wait-for-host-number.sh /tmp/
-#ADD ambari-shell.sh /tmp/
-#ENV JAVA_HOME /usr/jdk64/jdk1.7.0_67
-#ENV PATH $PATH:$JAVA_HOME/bin
-#WORKDIR /tmp
-#
-## fixing pgsql issue
-#RUN rm -rf /tmp/.s.PGSQL.5432.*
-#
-#ADD public-hostname.sh /etc/ambari-agent/conf/public-hostname.sh
-#ADD internal-hostname.sh /etc/ambari-agent/conf/internal-hostname.sh
-#RUN sed -i "/\[agent\]/ a public_hostname_script=\/etc\/ambari-agent\/conf\/public-hostname.sh" /etc/ambari-agent/conf/ambari-agent.ini
-#RUN sed -i "/\[agent\]/ a hostname_script=\/etc\/ambari-agent\/conf\/internal-hostname.sh" /etc/ambari-agent/conf/ambari-agent.ini
-#
-#RUN mkdir /var/log/hadoop-metrics && chmod 777 /var/log/hadoop-metrics
-#ADD hadoop-metrics2.properties.j2 /var/lib/ambari-server/resources/stacks/HDP/2.0.6/hooks/before-START/templates/hadoop-metrics2.properties.j2
-#
-## Error: database disk image is malformed
-##ADD 00_dbclean.sh /usr/local/init/00_dbclean.sh
-#
-#VOLUME /var/log
-#
-## increase agent timeout
-#RUN sed -i "s/agent.task.timeout=900/agent.task.timeout=2000/" /etc/ambari-server/conf/ambari.properties
-#
-#EXPOSE 8080 22
-#ENTRYPOINT ["/usr/local/serf/bin/start-serf-agent.sh"]
-#CMD ["--log-level", "debug"]
