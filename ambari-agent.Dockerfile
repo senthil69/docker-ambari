@@ -19,6 +19,7 @@ RUN yum install -y ambari-agent
 RUN sed -i "/pam_limits/ s/^/#/" /etc/pam.d/*
 
 ADD start-daemon.sh /tmp/start-daemon.sh
+RUN chmod +x /tmp/start-daemon.sh
 ENV JAVA_HOME /usr
 EXPOSE 22 8080 
 #Accumula Ports
