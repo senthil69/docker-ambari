@@ -5,14 +5,18 @@
 FROM centos:6.6
 MAINTAINER Senthil
 
+# Add Ambari and HDP repositry
 ADD ambari.repo /etc/yum.repos.d/
 ADD HDP.repo /etc/yum.repos.d/
 ADD HDP-UTILS.repo /etc/yum.repos.d/
 RUN yum install -y ambari-server  ambari-agent
 RUN yum install -y tar git curl which openssh-server openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel
-ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
-ADD id_rsa  /root/.ssh/id_rsa
-ADD id_rsa.pub  /root/.ssh/authorized_keys
+
+# Inserting SSH key is OPTIONAL for debugging purposes 
+#ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
+#ADD id_rsa  /root/.ssh/id_rsa
+#ADD id_rsa.pub  /root/.ssh/authorized_keys
+#
 RUN sed -i "/pam_limits/ s/^/#/" /etc/pam.d/*
 
 ADD start-daemon.sh /tmp/start-daemon.sh
