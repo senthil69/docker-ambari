@@ -9,7 +9,7 @@ MAINTAINER Senthil
 ADD ambari.repo /etc/yum.repos.d/
 ADD HDP.repo /etc/yum.repos.d/
 #ADD download-deps.sh /tmp/download-deps.sh
-RUN yum install -y tar git curl which ntp openssh-server openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel
+RUN yum install -y tar git curl which openssh-server openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel
 RUN yum install -y ambari-agent
 ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
 ADD id_rsa  /root/.ssh/id_rsa
@@ -36,3 +36,4 @@ EXPOSE 2888 3888 2181
 #MySQL 
 EXPOSE 8440 8441  8670
 
+CMD /tmp/start-daemon.sh
