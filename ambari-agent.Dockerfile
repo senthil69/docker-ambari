@@ -8,10 +8,14 @@ MAINTAINER Senthil
 # Ambari  Repo
 ADD ambari.repo /etc/yum.repos.d/
 ADD HDP.repo /etc/yum.repos.d/
+#RUN yum update -y  -d 0 -e 0 
 RUN yum install -y tar git curl which openssh-server openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel
 RUN yum install -y ambari-agent
+RUN yum install -y -d 0 -e 0 hdp-select  snappy snappy-devel ambari-log4j  hadoop_2_2_* 
+RUN yum install -y -d 0 -e 0 hbase_2_2_*  phoenix_2_2_* 
+RUN yum install -y -d 0 -e 0 ambari-log4j ambari-metrics-collector
 
-RUN yum install -y -d 0 -e 0 hdp-select  snappy snappy-devel ambari-log4j  hadoop_2_2_* hbase_2_2_*  phoenix_2_2_* 
+
 
 # Install SSH if required
 #ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
