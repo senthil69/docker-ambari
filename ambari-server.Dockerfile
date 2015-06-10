@@ -12,6 +12,7 @@ ADD HDP-UTILS.repo /etc/yum.repos.d/
 RUN yum install -y ambari-server  ambari-agent
 RUN yum install -y tar git curl which openssh-server openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel
 
+RUN yum install -y -d 0 -e 0 hdp-select  snappy snappy-devel ambari-log4j  hadoop_2_2_* hbase_2_2_*  phoenix_2_2_*
 # Inserting SSH key is OPTIONAL for debugging purposes 
 #ADD id_rsa.pub  /root/.ssh/id_rsa.pub 
 #ADD id_rsa  /root/.ssh/id_rsa
