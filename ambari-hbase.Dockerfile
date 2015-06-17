@@ -2,7 +2,7 @@
 # To build the image use:
 #
 
-FROM ambari-base:1
+FROM ambari-agent:1
 MAINTAINER Senthil
 
 RUN yum install -y -d 0 -e 0 hbase_2_2_*  phoenix_2_2_* 
