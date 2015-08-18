@@ -6,10 +6,10 @@ FROM ambari-base:1
 MAINTAINER Senthil
 
 
-#RUN yum install -y -d 0 -e 0 hdp-select  snappy snappy-devel ambari-log4j  
-#
 ENV JAVA_HOME /usr
 RUN ambari-server setup -j /usr --silent
-RUN mkdir -p /var/lib/ambari-server/resources/stacks/HDP/2.2.Brightics
-ADD 2.2.Brightics/  /var/lib/ambari-server/resources/stacks/HDP/2.2.Brightics
+ADD start-master.sh /tmp/start-master.sh
+RUN chmod +x /tmp/start-master.sh
+
 EXPOSE 8670 8080 8440 8441 
+CMD /tmp/start-master.sh

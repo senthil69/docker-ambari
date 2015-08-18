@@ -5,15 +5,14 @@
 FROM ambari-base:1
 MAINTAINER Senthil
 
-RUN yum install -y -d 0 -e 0 hdp-select  snappy snappy-devel ambari-log4j  hadoop_2_2_* 
-RUN yum install -y -d 0 -e 0 ambari-log4j ambari-metrics-collector
+RUN ( yum install -y -d 0 -e 0 hdp-select  snappy snappy-devel ambari-log4j   || yum install -y -d 0 -e 0 hdp-select  snappy snappy-devel ambari-log4j  hadoop_2_2_*  )
 
 
 
 RUN sed -i "/pam_limits/ s/^/#/" /etc/pam.d/*
 
-ADD start-daemon.sh /tmp/start-daemon.sh
-RUN chmod +x /tmp/start-daemon.sh
+ADD start-agent.sh /tmp/start-agent.sh
+RUN chmod +x /tmp/start-agent.sh
 ENV JAVA_HOME /usr
 EXPOSE 22 8080 
 #Accumula Ports
@@ -32,5 +31,4 @@ EXPOSE 60000 60010 60020 60030 8080 8085 9090 9095
 EXPOSE 2888 3888 2181 
 #MySQL 
 EXPOSE 8440 8441  8670
-
-CMD /tmp/start-daemon.sh
+CMD /tmp/start-agent.sh
