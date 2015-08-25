@@ -13,5 +13,7 @@ RUN yum install -y ambari-server  ambari-agent
 RUN (yum install -y tar git curl which openssh-server  || yum install -y tar git curl which openssh-server)
 RUN (yum install -y openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel || yum install -y openssh-client  java-1.7.0-openjdk java-1.7.0-openjdk-devel )
 
+# Upgrade obsolete SSL packages
+RUN yum update -y 
 RUN sed -i "/pam_limits/ s/^/#/" /etc/pam.d/*
 
