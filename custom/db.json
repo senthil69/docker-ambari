@@ -1,0 +1,13 @@
+{
+  "id": "postgre",
+  "cpus": 1,
+  "mem": 32.0,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "postgres",
+      "network": "HOST"
+    }
+  }
+}
+
