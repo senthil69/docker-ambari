@@ -5,8 +5,6 @@
 
 Follow the description at the docker [getting started](https://www.docker.io/gettingstarted/#h_installation)
 
-**Note:** If you are using `boot2docker` make sure you forward all ports from docker:
-http://docs.docker.io/en/latest/installation/mac/#forwarding-vm-port-range-to-host
 
 ## Build the docker images
 
@@ -18,29 +16,24 @@ Ambari has two components namely server and agent. We build two images namely am
 
 ## Starting the container
 
-First you need to start Ambari server 
+First you need to start Ambari server. Upon launching container the progress can be monitored at $CUSTOM/log/ambari-server/ambari-server.log 
 
 ```
-sudo docker run --privileged -h amb.aws.com -t -i -p 8080:8080  -p 2222:22 -v /mnt/d2:/d2 ambari:test /bin/bash
+sudo docker run --net=host -d postgres 
+sudo docker run --privileged --net=host -v /$CUSTOM/log:/var/log ambari-server:1
 
 ```
 
 The explanation of the parameters:
 
-- **-t -i** : interactive mode to start ambari-server
-- **-p**: expose ssh and Ambari WebUI ports defined in the Dockerfile
-- **-h amb0.mycorp.kom**: sets the hostname
+- **--net=host** : In this mode we will use host IP instead of  private IP
+- **-privileged=true**: Faciliate sudo operations in container.
+- ** $CUSTOM/log - Ambari server logs can be collected on host machine for monitoring purpose
 
-
-After login , you can start openssh-server and ntp server using the scrip
 ```
-sh /tmp/start-daemon.sh
-```
-
-Start ambari server and ambari agent 
-```
-ambari-server start 
-ambari-agent start 
+Second you need to run Ambari Agent. Ambari Agent need to know the IP address of the Ambari Master. Since We are using host IP address, you need to pass the host IP 
+...
+sudo docker run --net=host --privileged=true -v $CUSTOM/log:/var/log -v $CUSTOM/hadoop:/hadoop ambari-agent:1 
 ```
 
 
