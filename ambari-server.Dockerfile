@@ -11,6 +11,8 @@ ENV JAVA_HOME /usr
 RUN echo "client.api.port=8888"  >> /etc/ambari-server/conf/ambari.properties
 ADD start-master.sh /tmp/start-master.sh
 RUN chmod +x /tmp/start-master.sh
+ADD bootStrapDB.sql /root/bootStrapDB.sql
+
 
 #EXPOSE 8670 8080 8440 8441 
 CMD /tmp/start-master.sh

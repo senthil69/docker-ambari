@@ -5,8 +5,6 @@
 FROM ambari-base:1
 MAINTAINER Senthil
 
-RUN ( yum install -y -d 0 -e 0 hdp-select  snappy snappy-devel ambari-log4j   || yum install -y -d 0 -e 0 hdp-select  snappy snappy-devel ambari-log4j  hadoop_2_2_*  )
-
 
 
 RUN sed -i "/pam_limits/ s/^/#/" /etc/pam.d/*
