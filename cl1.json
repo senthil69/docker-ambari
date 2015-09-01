@@ -1,0 +1,14 @@
+{
+  "blueprint" : "b1",
+  "default_password" : "my-super-secret-password",
+  "host_groups" :[
+    {
+      "name" : "host_group_1", 
+      "hosts" : [         
+        {
+          "fqdn" : "ip-10-0-3-150.us-west-2.compute.internal"
+        }
+      ]
+    }
+  ]
+}
