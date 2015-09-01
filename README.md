@@ -4,7 +4,8 @@
 ## Environment setup 
 
 Follow the description at the docker [getting started](https://www.docker.io/gettingstarted/#h_installation). 
-Required Platforms
+Required Platforms:
+
    * Docker 1.8.1 
    * CentOS 7.1 64 bit. 
 
@@ -13,11 +14,9 @@ Required Platforms
 
 Ambari has two components namely server and agent. We build two images namely ambari-agent and ambari-server. The instructions to build the images are provided in build.sh. Modify the image tag name or build options to suit your needs 
 
-...
 
 ./build.sh
 
-...
 
 
 ## Starting the Ambari
@@ -35,7 +34,6 @@ The explanation of the parameters:
 - **--net=host** : In this mode we will use host IP instead of  private IP
 - **$CUSTOM/log** - Ambari server logs can be collected on host machine for monitoring purpose
 
-```
 You need to run Ambari Agent. Ambari Agent need to know the IP address of the Ambari Master. Since We are using host IP address, you need to pass the host IP 
 ...
 sudo docker run --net=host -e AMBARI_MASTER=$AMBARI_MASTER_HOST  -v $CUSTOM/log:/var/log/ambari-agent ambari-agent:1 
