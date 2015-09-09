@@ -21,7 +21,7 @@ Ambari has two components namely server and agent. We build two images namely am
 
 ## Starting the Ambari Server
 
-You need to start Ambari server.Ambari server logs can be monitored from host by mounting /var/log directory of container  
+You need to start Ambari server.Ambari server logs can be monitored from host by mounting /var/log directory of container.
 
 ```
 sudo docker run --net=host -d postgres 
