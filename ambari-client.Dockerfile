@@ -16,7 +16,7 @@ RUN yum install -y wget
 WORKDIR /root
 RUN wget https://s3.amazonaws.com/public-repo-1.hortonworks.com/HDP-LABS/Projects/spark/1.4.1/spark-assembly_2.10-1.4.1.2.3.1.0-8-dist.tar.gz
 RUN useradd spark
-ENV SPARK_HOME=/usr/hdp/spark-1.4.1
+ENV SPARK_HOME=/opt/apache/spark-1.4.1
 ENV YARN_CONF_DIR=/etc/hadoop/conf
 RUN mkdir -p $SPARK_HOME
 WORKDIR $SPARK_HOME
