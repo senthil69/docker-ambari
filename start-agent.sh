@@ -6,4 +6,4 @@ then
 fi
 rm -fr /var/log/hadoop  /var/run/hadoop
 ambari-agent start
-/bin/bash
+while [ true ] ; do sleep 5; done
