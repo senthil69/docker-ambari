@@ -12,7 +12,7 @@ RUN echo "client.api.port=8888"  >> /etc/ambari-server/conf/ambari.properties
 ADD start-master.sh /root/start-master.sh
 RUN chmod +x /root/start-master.sh
 ADD bootStrapDB.sql /root/bootStrapDB.sql
-CMD /tmp/start-master.sh
+CMD /root/start-master.sh
 
 
 #  --database=DBMS       Database to use embedded|oracle|mysql|postgres
