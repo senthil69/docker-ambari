@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: ambari-master-v1
+  namespace: brightics-hadoop
+  labels:
+    k8s-app: ambari-master
+    version: v1
+    kubernetes.io/cluster-service: "true"
+spec:
+  replicas: 1
+  selector:
+    k8s-app: ambari-master
+    version: v1
+  template:
+    metadata:
+      labels:
+        k8s-app: ambari-master
+        version: v1
+        kubernetes.io/cluster-service: "true"
+    spec:
+      containers:
+        - image: ambari-server:1
+          name: ambaris
+          env:
+          - name: POSTGRES
+            value: "localhost"
+          volumeMounts:
+          - name: datab
+            mountPath: "/b"
+      hostNetwork: true
+      nodeSelector:
+        role: ambari-server 
+      volumes:
+        - name: datab
+          hostPath:
+           path : "/b"

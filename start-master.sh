@@ -1,19 +1,26 @@
 #!/bin/bash
 echo "Starting Ambari Server..."
+if [[ -n "$POSTGRES" ]]
+then
+	POSTGRES_HOST=$POSTGRES
+else
+	POSTGRES_HOST=localhost
+fi
 
-#check whether postgres db is working
+echo "Set PostgresDB server to" $POSTGRES 
+
 for i in $(seq 1 5); do
-        nc -v -z -w 3 localhost 5432
+        nc -v -z -w 3 $POSTGRES_HOST 5432
         if [[ $? == 0 ]]; then
                 break
         fi
-        sleep 3
+        sleep 5
 done
 
-psql -U postgres -h localhost < /root/bootStrapDB.sql
-psql -U ambari -h localhost < /var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql
+psql -U postgres -h $POSTGRES_HOST < /root/bootStrapDB.sql
+psql -U ambari -h $POSTGRES_HOST < /var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql
 
-ambari-server setup -j /usr --database=postgres  --databasehost=localhost --databaseport=5432 --databasename=ambari  --postgresschema=ambarischema --databaseusername=ambari --databasepassword=bigdata  --silent
+ambari-server setup -j /usr --database=postgres  --databasehost=$POSTGRES_HOST --databaseport=5432 --databasename=ambari  --postgresschema=ambarischema --databaseusername=ambari --databasepassword=bigdata  --silent
 rm -fr /var/log/hadoop  /var/run/hadoop
 ambari-server start
-while [ true ] ; do sleep 10; done
+while [ true ];  do  sleep 5 ; done
