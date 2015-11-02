@@ -2,7 +2,7 @@
 # To build the image use:
 #
 
-FROM centos:6.6
+FROM centos:6.7
 MAINTAINER Senthil
 
 # Add Ambari and HDP repositry

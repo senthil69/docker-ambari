@@ -1,0 +1,97 @@
+{
+  "configurations" : [ ],
+  "host_groups" : [
+    {
+      "name" : "host_group_1",
+      "configurations" : [ ],
+      "components" : [
+        {
+          "name" : "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name" : "ZOOKEEPER_SERVER"
+        },
+        {
+          "name" : "PIG"
+        },
+        {
+          "name" : "HISTORYSERVER"
+        },
+        {
+          "name" : "OOZIE_CLIENT"
+        },
+        {
+          "name" : "HIVE_SERVER"
+        },
+        {
+          "name" : "NAMENODE"
+        },
+        {
+          "name" : "OOZIE_SERVER"
+        },
+        {
+          "name" : "HCAT"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "SPARK_JOBHISTORYSERVER"
+        },
+        {
+          "name" : "SECONDARY_NAMENODE"
+        },
+        {
+          "name" : "TEZ_CLIENT"
+        },
+        {
+          "name" : "SPARK_CLIENT"
+        },
+        {
+          "name" : "HIVE_METASTORE"
+        },
+        {
+          "name" : "AMBARI_SERVER"
+        },
+        {
+          "name" : "APP_TIMELINE_SERVER"
+        },
+        {
+          "name" : "NODEMANAGER"
+        },
+        {
+          "name" : "HIVE_CLIENT"
+        },
+        {
+          "name" : "HDFS_CLIENT"
+        },
+        {
+          "name" : "YARN_CLIENT"
+        },
+        {
+          "name" : "METRICS_COLLECTOR"
+        },
+        {
+          "name" : "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name" : "DATANODE"
+        },
+        {
+          "name" : "MYSQL_SERVER"
+        },
+        {
+          "name" : "WEBHCAT_SERVER"
+        },
+        {
+          "name" : "RESOURCEMANAGER"
+        }
+      ],
+      "cardinality" : "1"
+    }
+  ],
+  "Blueprints" : {
+    "stack_name" : "HDP",
+    "stack_version" : "2.3"
+  }
+}
