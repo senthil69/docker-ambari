@@ -6,7 +6,7 @@ FROM ambari-base:1
 MAINTAINER Senthil
 
 
-RUN yum install -y ambari-server postgresql-jdbc 
+RUN yum install -y ambari-server postgresql-jdbc  nc
 ENV JAVA_HOME /usr
 RUN echo "client.api.port=8888"  >> /etc/ambari-server/conf/ambari.properties
 ADD start-master.sh /root/start-master.sh
