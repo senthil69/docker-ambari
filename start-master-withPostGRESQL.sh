@@ -17,7 +17,7 @@ for i in $(seq 1 5); do
         sleep 5
 done
 
-psql -U postgres -h $POSTGRES_HOST < /root/bootStrapDB.sql
+psql -U postgres -h $POSTGRES_HOST < /root/bootStrapPostGRESQLDB.sql
 psql -U ambari -h $POSTGRES_HOST < /var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql
 
 ambari-server setup -j /usr --database=postgres  --databasehost=$POSTGRES_HOST --databaseport=5432 --databasename=ambari  --postgresschema=ambarischema --databaseusername=ambari --databasepassword=bigdata  --silent

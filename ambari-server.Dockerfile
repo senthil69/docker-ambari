@@ -6,13 +6,16 @@ FROM ambari-base:1
 MAINTAINER Senthil
 
 
-RUN yum install -y ambari-server postgresql-jdbc  nc
+RUN yum install -y ambari-server postgresql-jdbc  nc mysql-connector-java  mysql
 ENV JAVA_HOME /usr
 RUN echo "client.api.port=8888"  >> /etc/ambari-server/conf/ambari.properties
-ADD start-master.sh /root/start-master.sh
-RUN chmod +x /root/start-master.sh
-ADD bootStrapDB.sql /root/bootStrapDB.sql
-CMD /root/start-master.sh
+ADD start-master-withPostGRESQL.sh /root/start-master-withPostGRESQL.sh
+ADD start-master-withMySQL.sh /root/start-master-withMySQL.sh
+RUN chmod +x /root/start-master-withMySQL.sh
+ADD bootStrapPostGRESQLDB.sql /root/bootStrapPostGRESQLDB.sql
+ADD bootStrapMySQLDB.sql /root/bootStrapMySQLDB.sql
+#CMD /root/start-master-withMySQL.sh
+CMD /root/start-master-withPostGRESQL.sh
 
 
 #  --database=DBMS       Database to use embedded|oracle|mysql|postgres
