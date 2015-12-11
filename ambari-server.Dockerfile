@@ -7,6 +7,7 @@ MAINTAINER Senthil
 
 
 RUN yum install -y ambari-server postgresql-jdbc  nc mysql-connector-java  mysql
+RUN yum install -y krb5-server krb5-libs krb5-workstation
 ENV JAVA_HOME /usr
 RUN echo "client.api.port=8888"  >> /etc/ambari-server/conf/ambari.properties
 ADD start-master-withPostGRESQL.sh /root/start-master-withPostGRESQL.sh
