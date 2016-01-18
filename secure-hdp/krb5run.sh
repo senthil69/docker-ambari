@@ -84,4 +84,6 @@ EOF
 . /etc/sysconfig/kadmin
 /usr/sbin/_kadmind -P /var/run/kadmind.pid $KADMIND_ARGS
 
+kadmin.local -q 'addprinc -pw admin123 admin/admin'
+kadmin.local -q "addprinc -x dn=uid=david,ou=People,dc=us-west-2,dc=compute,dc=internal -pw david david"
 /bin/bash

@@ -188,4 +188,5 @@ EOF
 ldapadd -x -D $ROOT_DN -w admin123 -f krb5.ldif
 
 
-/bin/bash
+while [ true ];  do  sleep 5 ; done
+
