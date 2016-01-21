@@ -51,11 +51,19 @@ cat <<EOF > /etc/krb5.conf
 
 EOF
 
+echo -n "Starting random gen ..."
 rngd -r /dev/random -o /dev/urandom
+echo  "Done "
 
+
+echo -n "Setting KRB5 master password ..."
 kdb5_ldap_util -D  $ROOT_DN -w admin123 create -subtrees ou=People,$BASE_DN -r $KRB5_DOMAIN -P admin123 -s -H ldap://$HOST_FQDN
+echo  "Done "
 
+
+echo -n "Setting KRB5 stach password ..."
 kdb5_ldap_util -D $ROOT_DN -w admin123 stashsrvpw -f /var/kerberos/krb5kdc/service.keyfile -P admin123 $ROOT_DN
+echo  "Done "
 
 cat <<EOF > /var/kerberos/krb5kdc/kadm5.acl
 */admin@$KRB5_DOMAIN     *
@@ -78,12 +86,17 @@ cat <<EOF > /var/kerberos/krb5kdc/kdc.conf
 EOF
 
 
+echo -n "Starting KRB5  ..."
 . /etc/sysconfig/krb5kdc
 /usr/sbin/krb5kdc -P /var/run/krb5kdc.pid $KRB5KDC_ARGS
 
 . /etc/sysconfig/kadmin
 /usr/sbin/_kadmind -P /var/run/kadmind.pid $KADMIND_ARGS
+echo  "Done "
 
+echo -n "Provisioning user id  ..."
 kadmin.local -q 'addprinc -pw admin123 admin/admin'
 kadmin.local -q "addprinc -x dn=uid=david,ou=People,dc=us-west-2,dc=compute,dc=internal -pw david david"
+echo  "Done "
+
 /bin/bash
