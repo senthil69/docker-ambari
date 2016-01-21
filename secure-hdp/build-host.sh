@@ -33,6 +33,3 @@ cat <<EOF > /etc/krb5.conf
 
 EOF
 
-#ambari-server setup -s  --database=postgres --databasehost=`hostname -f` --databaseport=5432  --databasename=ambari --postgresschema=ambari --databaseusername=ambari --databasepassword=bigdata --java-home=/usr/lib/jvm/java
-
-#psql -h `hostname` -U ambari ambari < /var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql
