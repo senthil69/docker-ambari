@@ -43,8 +43,9 @@ ldapmodify -Y EXTERNAL -H ldapi:/// -f chdomain.ldif
 
 ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=schema,cn=config dn
 
-cp /usr/share/doc/krb5-server-ldap-1.13.2/kerberos.schema /etc/openldap/schema/
 
+# Dump the Kerberos Schema in LDIF format and import into the DB
+cp /usr/share/doc/krb5-server-ldap-1.13.2/kerberos.schema /etc/openldap/schema/
 cat <<EOF > /tmp/schema_convert.config
 include /etc/openldap/schema/core.schema
 include /etc/openldap/schema/collective.schema
@@ -60,11 +61,8 @@ include /etc/openldap/schema/openldap.schema
 include /etc/openldap/schema/ppolicy.schema
 include /etc/openldap/schema/kerberos.schema
 EOF
-
 mkdir /tmp/ldif_output
-
 slapcat -f /tmp/schema_convert.config -F /tmp/ldif_output -n0 -s "cn={12}kerberos,cn=schema,cn=config" > /tmp/cn=kerberos.ldif
-
 sed -i  -e  's/{12}kerberos/kerberos/g' /tmp/cn\=kerberos.ldif 
 sed -i   '160,167d' /tmp/cn\=kerberos.ldif 
 cp /tmp/cn\=kerberos.ldif /etc/openldap/schema/kerberos.ldif
@@ -130,43 +128,6 @@ dn: ou=Groups,$BASE_DN
 objectClass: organizationalUnit
 ou: Group
 
-dn: cn=miners,ou=Groups,$BASE_DN
-objectClass: posixGroup
-cn: miners
-gidNumber: 5000
-
-dn: uid=john,ou=People,$BASE_DN
-objectClass: inetOrgPerson
-objectClass: posixAccount
-objectClass: shadowAccount
-uid: john
-sn: Doe
-givenName: John
-cn: John Doe
-displayName: John Doe
-uidNumber: 10000
-gidNumber: 5000
-userPassword: $JPWD
-gecos: John Doe
-loginShell: /bin/bash
-homeDirectory: /home/john
-
-dn: uid=david,ou=People,$BASE_DN
-objectClass: inetOrgPerson
-objectClass: posixAccount
-objectClass: shadowAccount
-uid: david
-sn: David
-givenName: David
-cn: David Kim
-displayName: David Kim
-uidNumber: 10001
-gidNumber: 5000
-userPassword: $DPWD
-gecos: David Kim
-loginShell: /bin/bash
-homeDirectory: /home/david
-
 EOF
 
 ldapadd -x -D  $ROOT_DN  -w admin123 -f basedomain.ldif
@@ -174,8 +135,7 @@ ldapadd -x -D  $ROOT_DN  -w admin123 -f basedomain.ldif
 
 ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b  cn=schema,cn=config dn
 
-
-
+sh /add-users.sh
 
 cat <<EOF > krb5.ldif
 
