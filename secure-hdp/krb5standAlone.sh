@@ -77,4 +77,5 @@ kadmin.local -q 'addprinc -pw admin123 admin/admin'
 kadmin.local -q "addprinc -pw david david"
 echo  "Done "
 
-/bin/bash
+while [ true ];  do  sleep 5 ; done
+
