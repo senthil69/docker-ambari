@@ -3,7 +3,7 @@
 . setEnv.sh
 
 echo -n "uploading blueprint..."
-curl -H "X-Requested-By: ambari" -X POST -d  @hdfs-bp.json  -u admin:admin http://$HOST_FQDN:8888/api/v1/blueprints/b1
+curl -H "X-Requested-By: ambari" -X POST -d  @hdfs-bp.json  -u admin:admin http://$HOST_FQDN:8080/api/v1/blueprints/b1
 echo -n "done"
 cat <<EOF > /tmp/x 
 
@@ -24,4 +24,4 @@ cat <<EOF > /tmp/x
 EOF
 
 
-curl -H "X-Requested-By: ambari" -X POST -d @/tmp/x  -u admin:admin http://$HOST_FQDN:8888/api/v1/clusters/c1
+curl -H "X-Requested-By: ambari" -X POST -d @/tmp/x  -u admin:admin http://$HOST_FQDN:8080/api/v1/clusters/c1
