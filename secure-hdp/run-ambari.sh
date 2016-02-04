@@ -2,7 +2,7 @@
 . /setEnv.sh
 
 for i in $(seq 1 5); do
-        nc -z -v -w 1 $HOST_FQDN 5432
+	timeout 1 bash -c "cat < /dev/null > /dev/tcp/$HOST_FQDN/5432"
         if [[ $? == 0 ]]; then
                 break
         fi
@@ -38,6 +38,7 @@ cat <<EOF | tee /etc/krb5.conf
 
 EOF
 
+ambari-server setup --jdbc-db=postgres --jdbc-driver=/usr/share/java/postgresql-jdbc.jar
 
 ambari-server setup -s  --database=postgres --databasehost=$HOST_FQDN --databaseport=5432  --databasename=ambari --postgresschema=ambari --databaseusername=ambari --databasepassword=bigdata --java-home=/usr/lib/jvm/java
 export PGPASSWORD=bigdata

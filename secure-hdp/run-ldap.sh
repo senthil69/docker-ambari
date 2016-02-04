@@ -73,6 +73,45 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/kerberos.ldif
 
 ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b  cn=schema,cn=config dn
 
+
+cat > memberof.ldif <<EOT 
+dn: cn=module,cn=config
+cn: module
+objectClass: olcModuleList
+objectClass: top
+olcModulePath: /usr/lib64/openldap
+olcModuleLoad: memberof.la
+
+dn: olcOverlay={0}memberof,olcDatabase={2}hdb,cn=config
+objectClass: olcConfig
+objectClass: olcMemberOf
+objectClass: olcOverlayConfig
+objectClass: top
+olcOverlay: memberof
+
+EOT
+ldapadd -Y EXTERNAL -H ldapi:/// -f  memberof.ldif
+
+cat > refint.ldif <<EOT
+dn: cn=module,cn=config
+cn: module
+objectclass: olcModuleList
+objectclass: top
+olcmoduleload: refint.la
+olcmodulepath: /usr/lib64/openldap
+
+dn: olcOverlay={1}refint,olcDatabase={2}hdb,cn=config
+objectClass: olcConfig
+objectClass: olcOverlayConfig
+objectClass: olcRefintConfig
+objectClass: top
+olcOverlay: {1}refint
+olcRefintAttribute: memberof member manager owner
+
+EOT
+ldapadd -Y EXTERNAL -H ldapi:/// -f  refint.ldif
+
+
 cat <<EOF >logging.ldif
 
 dn: cn=config
@@ -135,7 +174,7 @@ ldapadd -x -D  $ROOT_DN  -w admin123 -f basedomain.ldif
 
 ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b  cn=schema,cn=config dn
 
-sh /add-users.sh
+/add-users.sh
 
 cat <<EOF > krb5.ldif
 
@@ -147,6 +186,6 @@ EOF
 
 ldapadd -x -D $ROOT_DN -w admin123 -f krb5.ldif
 
-
-while [ true ];  do  sleep 5 ; done
+/bin/bash
+#while [ true ];  do  sleep 5 ; done
 

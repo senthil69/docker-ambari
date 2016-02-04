@@ -29,17 +29,13 @@ objectClass: posixGroup
 cn: miners
 gidNumber: 5000
 
-dn: cn=miners,ou=Groups,$BASE_DN
-objectClass: top
-objectClass: groupofnames
-cn: miners
-member: uid=john,ou=People,$BASE_DN
-member: uid=david,ou=People,$BASE_DN
 
 dn: uid=john,ou=People,$BASE_DN
 objectClass: inetOrgPerson
 objectClass: posixAccount
 objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: person
 uid: john
 sn: Doe
 givenName: John
@@ -56,6 +52,8 @@ dn: uid=david,ou=People,$BASE_DN
 objectClass: inetOrgPerson
 objectClass: posixAccount
 objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: person
 uid: david
 sn: David
 givenName: David
@@ -68,7 +66,13 @@ gecos: David Kim
 loginShell: /bin/bash
 homeDirectory: /home/david
 
-EOF
+dn: cn=miners,ou=Groups,$BASE_DN
+objectClass: top
+objectClass: groupofnames
+cn: miners
+member: uid=john,ou=People,$BASE_DN
+member: uid=david,ou=People,$BASE_DN
 
+EOF
 
 ldapadd -x -D cn=Manager,$BASE_DN -w admin123 -f addusers.ldif
