@@ -2,12 +2,10 @@
 
 CMD="sudo docker run --net=host --privileged=true "
 
-$CMD --name=ldap -d openldap:1
+screen -t ldap $CMD --name=ldap -ti openldap:1
 sleep 1
-$CMD --name=db   -d postgres:1
+screen -t postgres $CMD --name=db   -ti postgres:1
 sleep 1
-$CMD --name=krb5 -d  krb5:1
+screen -t krb5 $CMD --name=krb5 -ti  krb5:1
 sleep 1
-$CMD --name=ambaris -ti  ambaris:1
-
-
+screen -t ambari $CMD --name=ambaris -ti  ambaris:1

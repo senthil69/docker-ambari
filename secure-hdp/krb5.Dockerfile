@@ -10,6 +10,6 @@ RUN yum install -y tar  krb5-server krb5-workstation krb5-server-ldap rng-tools
 ADD krb5run.sh /krb5run.sh 
 ADD krb5standAlone.sh /krb5standAlone.sh 
 ADD setEnv.sh /setEnv.sh 
-#CMD ["/krb5run.sh"]
-CMD ["/krb5standAlone.sh"]
+CMD ["/krb5run.sh"]
+#CMD ["/krb5standAlone.sh"]
 
