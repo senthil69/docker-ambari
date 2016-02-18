@@ -81,6 +81,7 @@ cat <<EOF > /var/kerberos/krb5kdc/kdc.conf
   dict_file = /usr/share/dict/words
   admin_keytab = /var/kerberos/krb5kdc/kadm5.keytab
   supported_enctypes = aes256-cts:normal aes128-cts:normal des3-hmac-sha1:normal arcfour-hmac:normal camellia256-cts:normal camellia128-cts:normal des-hmac-sha1:normal des-cbc-md5:normal des-cbc-crc:normal
+ default_principal_flags = +renewable
  }
 
 EOF
