@@ -28,14 +28,17 @@ dn: cn=cokebiz,ou=PosixGroups,$BASE_DN
 objectClass: posixGroup
 cn: cokebiz
 gidNumber: 5000
+
 dn: cn=cokedev,ou=PosixGroups,$BASE_DN
 objectClass: posixGroup
 cn: cokedev
 gidNumber: 5001
+
 dn: cn=sdsbiz,ou=PosixGroups,$BASE_DN
 objectClass: posixGroup
 cn: sdsbiz
 gidNumber: 5002
+
 dn: cn=sdsdev,ou=PosixGroups,$BASE_DN
 objectClass: posixGroup
 cn: sdsdev
@@ -196,6 +199,7 @@ objectClass: groupofnames
 cn: cokebiz
 member: uid=john,ou=People,$BASE_DN
 member: uid=david,ou=People,$BASE_DN
+
 dn: cn=cokedev,ou=Groups,$BASE_DN
 objectClass: top
 objectClass: groupofnames
@@ -209,6 +213,7 @@ objectClass: groupofnames
 cn: sdsbiz
 member: uid=jkim,ou=People,$BASE_DN
 member: uid=jjung,ou=People,$BASE_DN
+
 dn: cn=sdsdev,ou=Groups,$BASE_DN
 objectClass: top
 objectClass: groupofnames
