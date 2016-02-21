@@ -1,0 +1,111 @@
+{
+  "configurations" : [
+   { 
+      "hdfs-site" : {
+        "properties" : {
+          "dfs.replication" : "1"
+        }
+      }
+    }
+  ],
+  "host_groups" : [
+    {
+      "components" : [
+        {
+          "name" : "NODEMANAGER"
+        },
+        {
+          "name" : "HIVE_SERVER"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "HBASE_MASTER"
+        },
+        {
+          "name" : "HIVE_METASTORE"
+        },
+        {
+          "name" : "TEZ_CLIENT"
+        },
+        {
+          "name" : "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name" : "HCAT"
+        },
+        {
+          "name" : "WEBHCAT_SERVER"
+        },
+        {
+          "name" : "SECONDARY_NAMENODE"
+        },
+        {
+          "name" : "ZOOKEEPER_SERVER"
+        },
+        {
+          "name" : "OOZIE_CLIENT"
+        },
+        {
+          "name" : "HBASE_REGIONSERVER"
+        },
+        {
+          "name" : "METRICS_COLLECTOR"
+        },
+        {
+          "name" : "SPARK_CLIENT"
+        },
+        {
+          "name" : "YARN_CLIENT"
+        },
+        {
+          "name" : "HDFS_CLIENT"
+        },
+        {
+          "name" : "HISTORYSERVER"
+        },
+        {
+          "name" : "NAMENODE"
+        },
+        {
+          "name" : "PIG"
+        },
+        {
+          "name" : "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name" : "AMBARI_SERVER"
+        },
+        {
+          "name" : "DATANODE"
+        },
+        {
+          "name" : "HBASE_CLIENT"
+        },
+        {
+          "name" : "SPARK_JOBHISTORYSERVER"
+        },
+        {
+          "name" : "OOZIE_SERVER"
+        },
+        {
+          "name" : "APP_TIMELINE_SERVER"
+        },
+        {
+          "name" : "HIVE_CLIENT"
+        },
+        {
+          "name" : "RESOURCEMANAGER"
+        }
+      ],
+      "configurations" : [ ],
+      "name" : "host_group_1",
+      "cardinality" : "1"
+    }
+  ],
+  "Blueprints" : {
+    "stack_name" : "HDP",
+    "stack_version" : "2.3"
+  }
+}
