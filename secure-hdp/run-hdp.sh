@@ -3,7 +3,8 @@
 . setEnv.sh
 
 echo -n "uploading blueprint..."
-curl -H "X-Requested-By: ambari" -X POST -d  @hdfs-bp.json  -u admin:admin http://$HOST_FQDN:8080/api/v1/blueprints/b1
+#while IFS='' read -r line || [[ -n "$line" ]]; do      eval echo  $line; done < "./c1b1-min.json" > /tmp/c1b1-min.json
+curl -H "X-Requested-By: ambari" -X POST -d  @./c1b1-min.json  -u admin:admin http://$HOST_FQDN:8080/api/v1/blueprints/b1
 echo -n "done"
 cat <<EOF > /tmp/x 
 

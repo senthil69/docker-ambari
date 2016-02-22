@@ -6,7 +6,37 @@
           "dfs.replication" : "1"
         }
       }
-    }
+    },{
+      "hive-site": {
+         "javax.jdo.option.ConnectionDriverName" : 
+			"org.postgresql.Driver",
+         "javax.jdo.option.ConnectionPassword" : "hive",
+         "javax.jdo.option.ConnectionURL" : 
+	        "jdbc:postgresql://%HOSTGROUP::host_group_1%/hive",
+         "javax.jdo.option.ConnectionUserName" : "hive"
+        }
+     },{
+       "hive-env": {
+         "hive_database" : "Existing Postgres Database",
+          "hive_database_type" : "postgres"
+        }
+     },{
+       "oozie-site": {
+         "oozie.db.schema.name" : "oozie",
+         "oozie.service.JPAService.create.db.schema" : "true",
+         "oozie.service.JPAService.jdbc.driver" : 
+        	"com.postgresql.Driver",
+         "oozie.service.JPAService.jdbc.username" : "oozie",
+         "oozie.service.JPAService.jdbc.password" : "oozie",
+         "oozie.service.JPAService.jdbc.url" :
+             "jdbc:postgresql://%HOSTGROUP::host_group_1%/oozie"
+       }
+     },{
+        "oozie-env": {
+          "oozie_database" : "Existing  Postgresql Database",
+          "oozie_database_type" : "postgres"
+        }
+     }
   ],
   "host_groups" : [
     {
