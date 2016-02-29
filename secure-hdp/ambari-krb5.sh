@@ -1,8 +1,9 @@
 . setEnv.sh
 
-#echo curl -H "X-Requested-By:ambari" -u admin:admin -i -X POST http://$HOST_FQDN:8080/api/v1/clusters/c1/services/KERBEROS
+set -x 
+#curl -H "X-Requested-By:ambari" -u admin:admin -i -X POST http://$HOST_FQDN:8080/api/v1/clusters/c1/services/KERBEROS
 
-#echo curl -H "X-Requested-By:ambari" -u admin:admin -i -X POST http://$HOST_FQDN:8080/api/v1/clusters/c1/services/KERBEROS/components/KERBEROS_CLIENT
+#curl -H "X-Requested-By:ambari" -u admin:admin -i -X POST http://$HOST_FQDN:8080/api/v1/clusters/c1/services/KERBEROS/components/KERBEROS_CLIENT
 
 cat <<EOF  > /tmp/krb5conf.json 
 
@@ -66,7 +67,7 @@ EOF
 
 #curl -H "X-Requested-By:ambari" -u admin:admin -i -X PUT -d @/tmp/kerb.txt http://$HOST_FQDN:8080/api/v1/clusters/c1/artifacts/kerberos_descriptor
 
-#curl -H "X-Requested-By:ambari" -u admin:admin -i -X POST -d @/tmp/kerb.txt http://$HOST_FQDN:8080/api/v1/clusters/c1/artifacts/kerberos_descriptor
+curl -H "X-Requested-By:ambari" -u admin:admin -i -X POST -d @/tmp/kerb.txt http://$HOST_FQDN:8080/api/v1/clusters/c1/artifacts/kerberos_descriptor
 
 cat <<EOF > /tmp/krb5.enable.json
 
@@ -84,7 +85,7 @@ cat <<EOF > /tmp/krb5.enable.json
 
 EOF
 
-#curl -H "X-Requested-By:ambari" -u admin:admin -i -X PUT -d @/tmp/krb5.enable.json http://$HOST_FQDN:8080/api/v1/clusters/c1
+curl -H "X-Requested-By:ambari" -u admin:admin -i -X PUT -d @/tmp/krb5.enable.json http://$HOST_FQDN:8080/api/v1/clusters/c1
 
 
 curl -H "X-Requested-By:ambari" -u admin:admin -i -X PUT -d '{"ServiceInfo": {"state" : "STARTED"}}' http://$HOST_FQDN:8080/api/v1/clusters/c1/services

@@ -97,7 +97,14 @@ echo  "Done "
 
 echo -n "Provisioning user id  ..."
 kadmin.local -q 'addprinc -pw admin123 admin/admin'
-kadmin.local -q "addprinc -x dn=uid=david,ou=People,dc=us-west-2,dc=compute,dc=internal -pw david david"
+kadmin.local -q "addprinc -x dn=uid=john,ou=People,$BASE_DN -pw coke john"
+kadmin.local -q "addprinc -x dn=uid=david,ou=People,$BASE_DN -pw coke david"
+kadmin.local -q "addprinc -x dn=uid=jane,ou=People,$BASE_DN -pw coke jane"
+kadmin.local -q "addprinc -x dn=uid=lucy,ou=People,$BASE_DN -pw coke lucy"
+kadmin.local -q "addprinc -x dn=uid=jkim,ou=People,$BASE_DN -pw sds jkim"
+kadmin.local -q "addprinc -x dn=uid=jjung,ou=People,$BASE_DN -pw sds jjung"
+kadmin.local -q "addprinc -x dn=uid=jpark,ou=People,$BASE_DN -pw sds jpark"
+kadmin.local -q "addprinc -x dn=uid=jjoo,ou=People,$BASE_DN -pw sds jjoo"
 echo  "Done "
 
 /bin/bash
