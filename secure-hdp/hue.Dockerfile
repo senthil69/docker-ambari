@@ -2,8 +2,6 @@ FROM ubuntu
 Maintainer Senthil 
 
 ADD sources.list  /etc/apt/sources.list
-ADD setEnv.sh  /root/setEnv.sh
-ADD hue-run.sh  /root/hue-run.sh
 RUN apt-get -y update 
 RUN apt-get install -y build-essential 
 RUN apt-get install -y openjdk-7-jdk
@@ -13,6 +11,8 @@ RUN apt-get install -y libldap2-dev libsqlite3-dev libtidy-0.99-0 libxml2-dev li
 RUN apt-get install -y  wget rsync
 WORKDIR /root
 RUN wget https://dl.dropboxusercontent.com/u/730827/hue/releases/3.8.1/hue-3.8.1.tgz
+ADD setEnv.sh  /root/setEnv.sh
 RUN tar -zxf hue-3.8.1.tgz
+ADD hue-run.sh  /root/hue-run.sh
 RUN useradd hue
-CMD [/root/hue-run.sh]
+CMD "/bin/bash" "/root/hue-run.sh"

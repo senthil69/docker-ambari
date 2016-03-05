@@ -1,5 +1,5 @@
 #!/bin/bash
-. /root/setEnv.sh
+source /root/setEnv.sh
 
 cd /root/hue-3.8.1
 make install
@@ -33,5 +33,12 @@ cat <<EOF | tee /etc/krb5.conf
 
 
 EOF
-
+cp /root/hue.ini /usr/local/hue/desktop/conf/hue.ini 
+mkdir -p /etc/security/keytabs
+kadmin -w admin123 -p admin/admin -q addprinc -randkey hue
+kadmin -w admin123 -p admin/admin -q 'addprinc -randkey hue'
+kadmin -w admin123 -p admin/admin -q 'modprinc -maxrenewlife 7days hue'
+kadmin -w admin123 -p admin/admin -q 'modprinc -maxrenewlife 7days krbtgt/SDS.COM'
+kadmin -w admin123 -p admin/admin -q 'ktadd -k /etc/security/keytabs/hue.keytab hue'
+chown hue /etc/security/keytabs/hue.keytab hue
 /bin/bash
