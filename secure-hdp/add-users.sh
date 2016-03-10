@@ -2,14 +2,17 @@
 
 . setEnv.sh
 
-ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "uid=john,ou=People,$BASE_DN"
-ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "uid=david,ou=People,$BASE_DN"
-ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "cn=cokebiz,ou=PosixGroups,$BASE_DN"
-ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "cn=cokebiz,ou=Groups,$BASE_DN"
-ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "ou=PosixGroups,$BASE_DN"
-ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "ou=Groups,$BASE_DN"
+#ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "uid=john,ou=People,$BASE_DN"
+#ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "uid=david,ou=People,$BASE_DN"
+#ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "cn=cokebiz,ou=PosixGroups,$BASE_DN"
+#ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "cn=cokebiz,ou=Groups,$BASE_DN"
+#ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "ou=PosixGroups,$BASE_DN"
+#ldapdelete -x -D cn=Manager,$BASE_DN -w admin123  "ou=Groups,$BASE_DN"
 
 
+# Create two groups namely Groups and PosixGroups. 
+# Container groups will be used by memberof plugin (Apache Ranger) 
+# Container PosixGroups will be used by LDAP PAM to determine group of the user
 
 export JPWD=`slappasswd -s sds`
 export DPWD=`slappasswd -s coke`
@@ -223,4 +226,5 @@ member: uid=jjoo,ou=People,$BASE_DN
 
 EOF
 
+# Add the user - Enter the password admin123  
 ldapadd -x -D cn=Manager,$BASE_DN -w admin123 -f addusers.ldif
