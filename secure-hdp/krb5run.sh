@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# All the environment variables listed in the file are defined in 
+# setEenv.sh
 . setEnv.sh
 
+# Default parameters for krb5.conf . 
 cat <<EOF > /etc/krb5.conf
 
 [logging]
@@ -51,24 +54,30 @@ cat <<EOF > /etc/krb5.conf
 
 EOF
 
+# Start the random number generator for better performance
 echo -n "Starting random gen ..."
 rngd -r /dev/random -o /dev/urandom
 echo  "Done "
 
 
+# This command sets up master password for LDAP DB 
+# This command configures People subtree as kerberos principals
 echo -n "Setting KRB5 master password ..."
 kdb5_ldap_util -D  $ROOT_DN -w admin123 create -subtrees ou=People,$BASE_DN -r $KRB5_DOMAIN -P admin123 -s -H ldap://$HOST_FQDN
 echo  "Done "
 
 
+# Allow Kerberos Server to login into LDAP without interactive password 
 echo -n "Setting KRB5 stach password ..."
 kdb5_ldap_util -D $ROOT_DN -w admin123 stashsrvpw -f /var/kerberos/krb5kdc/service.keyfile -P admin123 $ROOT_DN
 echo  "Done "
 
+# Default ACL - admin/admin can perform any operation on KerberosDB
 cat <<EOF > /var/kerberos/krb5kdc/kadm5.acl
 */admin@$KRB5_DOMAIN     *
 EOF
 
+# Config parameters for KDC 
 cat <<EOF > /var/kerberos/krb5kdc/kdc.conf
 [kdcdefaults]
  kdc_ports = 88
@@ -95,6 +104,9 @@ echo -n "Starting KRB5  ..."
 /usr/sbin/_kadmind -P /var/run/kadmind.pid $KADMIND_ARGS
 echo  "Done "
 
+
+#Provision LDAP users as kerberos principals. Ex john -> john@SDS.COM
+# where SDS.COM is the Kerberos domain name set earlier 
 echo -n "Provisioning user id  ..."
 kadmin.local -q 'addprinc -pw admin123 admin/admin'
 kadmin.local -q "addprinc -x dn=uid=john,ou=People,$BASE_DN -pw coke john"

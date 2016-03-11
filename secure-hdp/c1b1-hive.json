@@ -228,6 +228,8 @@
           "hadoop.proxyuser.hive.groups" : "*",
           "hadoop.proxyuser.hcat.groups" : "*",
           "hadoop.proxyuser.hive.hosts" : "*",
+          "hadoop.proxyuser.hue.groups" : "*",
+          "hadoop.proxyuser.hue.hosts" : "*",
           "io.serializations" : "org.apache.hadoop.io.serializer.WritableSerialization"
         }
       }
@@ -299,7 +301,7 @@
           "dfs.client.retry.policy.enabled" : "false",
           "dfs.namenode.startup.delay.block.deletion.sec" : "3600",
           "dfs.block.access.token.enable" : "true",
-          "dfs.datanode.data.dir" : "/hadoop/hdfs/data",
+          "dfs.datanode.data.dir" : "/b/hadoop/hdfs/data",
           "dfs.permissions.superusergroup" : "hdfs",
           "dfs.blocksize" : "134217728",
           "dfs.namenode.checkpoint.edits.dir" : "${dfs.namenode.checkpoint.dir}",
