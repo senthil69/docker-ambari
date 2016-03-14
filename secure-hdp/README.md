@@ -30,10 +30,10 @@ In this process, we will follow these steps
 images. Hence you need to modify the file setupEnv.sh with your settings before building docker images. 
 The following table describes the configuration parameters for the cluster setup. 
 
-
-| Name  |  Default value | Comments |
+| Name | Default value | Comments |
+| --- | --- | --- |
 | BASE_DN | dc=sds,dc=com | base distinguished name in openLDAP. All entries in LDAP such as user,group will be a child node of BASE DN |
-| ROOT_DN | cn=Manager,dc=sds,dc=com | Superuser of openLDAP. We will use this principal to make changes to LDAP DB configuration |
+| ROOT_DN | cn=Manager,dc=sds,dc=com | Superuser of openLDAP. We will use this principal to make changes to LDAP DB configuration. |
 | KRB5_DOMAIN | SDS.COM | Domain for Kerberos. All principals will be referred with this domain suffix ex john@SDS.COM |
 | HOST_DOMAIN | us-west-2.compute.internal | Default domain of the host. The default is set for AWS EC2. You need to change to appropriate value |
 
