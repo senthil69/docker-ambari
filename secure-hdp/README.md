@@ -1,4 +1,4 @@
-#Secure Hadoop Cluster using Docker
+#Secure Hadoop Cluster using Docker (Quick Start Guide)
 
 ## Introduction
 
@@ -68,7 +68,62 @@ Here is the basic tutorial about GNU Screen http://www.kuro5hin.org/story/2004/3
 https://www.gnu.org/software/screen/manual/screen.html . 
 If the user is not comfortable with screen, they can always launch four independent terminals and run the container
 
- On terminal 1 
- 
+Run  
+
+`sudo docker run --net=host --privileged=true  --name=ldap -ti openldap:1`
+
+`sudo docker run --net=host --privileged=true   --name=db   -ti postgres:1`
+
+`sudo docker run --net=host --privileged=true   --name=krb5 -ti  krb5:1`
+
+`sudo docker run --net=host --privileged=true   --name=ambaris -ti  ambaris:1`
+
+The Kerberos container with name krb5 requires admin password for setup. You need to enter the password as `admin123`. 
+For this setup, the password is hardcoded to admin123. In future , we can make it configurable. 
+
+### Checklist 
+
+* Run  `sudo docker ps` in the host - Ensure all four containers are running. 
+* Goto `ldap` container and run `ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b ou=People,dc=sds,dc=com dn`  
+ensure that all users are listed 
+* Goto `krb5` container terminal and run 
+
+`kadmin -p admin/admin` 
+
+Enter `admin123` as password and you should be login into kerberos. 
+
+## Prepare the hosts for Hadoop setup 
+
+The host must be prepared to run Hadoop cluster by running the script 
+
+`build-host.sh`
+
+The script installs Ambari agent , JDK and kerberos client which is necessary to talk to Kerberos Server. 
+Ensure that `/etc/ambari-agent/conf/ambari-agent.ini` configuration file refers to correct ambari-server hostname. If you are installing ambari-server container and ambari-agent 
+on same host, there is no config changes necessary. 
+
+
+## Setup Hadoop and make it secure
+
+Run 
+
+`run-hdp.sh` 
+
+This scripts setup single node hadoop cluster with Hive. 
+
+### Checklist 
+
+Access the Ambari console using `http://$HOST_FQDN:8080`  where HOST_FQDN is the hostname of Ambari server container. 
+
+Default user id and password is admin/admin`
+
+Upon successful login, you should be able to view all the components installed. 
+
+Document to enable Kerberos in HDP is given [here](
+https://docs.hortonworks.com/HDPDocuments/Ambari-2.2.0.0/bk_Ambari_Security_Guide/content/ch_amb_sec_guide.html)
+
+Documentation to install Ranger using Ambari is given [here](
+https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.2/bk_Ranger_Install_Guide/content/ch_overview_ranger_ambari_install.html)
+
 
 
