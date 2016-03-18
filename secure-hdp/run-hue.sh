@@ -2,6 +2,9 @@
 
 . setEnv.sh
 
+
+sudo docker build -f hue.Dockerfile -t hue:1 .
+sleep 3
 TMPDIR=/tmp/hue-run
 rm -fr  $TMPDIR
 mkdir -p $TMPDIR

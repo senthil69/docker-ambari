@@ -18,6 +18,10 @@ create user rangerlogger  with password 'rangerlogger';
 create database ranger_audit ;
 grant all privileges on database ranger_audit to rangerlogger ;
 
+create user rangerkms  with password 'rangerkms';
+create database rangerkms ;
+grant all privileges on database rangerkms to rangerkms ;
+
 \connect ambari;
 create schema ambarischema authorization ambari;
 alter schema  ambarischema owner to ambari;
