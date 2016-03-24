@@ -2,7 +2,7 @@
 
 . setEnv.sh 
 sudo cp ambari.repo /etc/yum.repos.d/
-sudo yum install -y ambari-agent krb5-workstation nss-pam-ldapd openldap-clients 
+sudo yum install -y ambari-agent krb5-workstation nss-pam-ldapd openldap-clients postgresql-jdbc
 sudo yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
  
 
