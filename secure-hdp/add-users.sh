@@ -19,14 +19,6 @@ export DPWD=`slappasswd -s coke`
 
 cat <<EOF >addusers.ldif 
 
-dn: ou=Groups,$BASE_DN
-objectClass: organizationalUnit
-ou: Group
-
-dn: ou=PosixGroups,$BASE_DN
-objectClass: organizationalUnit
-ou: Group
-
 dn: cn=cokebiz,ou=PosixGroups,$BASE_DN
 objectClass: posixGroup
 cn: cokebiz

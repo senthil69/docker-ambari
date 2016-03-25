@@ -195,6 +195,10 @@ dn: ou=Groups,$BASE_DN
 objectClass: organizationalUnit
 ou: Group
 
+dn: ou=PosixGroups,$BASE_DN
+objectClass: organizationalUnit
+ou: Group
+
 EOF
 
 ldapadd -x -D  $ROOT_DN  -w admin123 -f basedomain.ldif

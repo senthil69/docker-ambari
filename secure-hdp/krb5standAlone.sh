@@ -75,7 +75,22 @@ echo  "Done "
 echo -n "Provisioning user id  ..."
 kadmin.local -q 'addprinc -pw admin123 admin/admin'
 kadmin.local -q "addprinc -pw david david"
+#Provision LDAP users as kerberos principals. Ex john -> john@SDS.COM
+# where SDS.COM is the Kerberos domain name set earlier
+echo -n "Provisioning user id  ..."
+kadmin.local -q 'addprinc -pw admin123 admin/admin'
+kadmin.local -q "addprinc -pw coke john"
+kadmin.local -q "addprinc -pw coke david"
+kadmin.local -q "addprinc -pw coke jane"
+kadmin.local -q "addprinc -pw coke lucy"
+kadmin.local -q "addprinc -pw sds jkim"
+kadmin.local -q "addprinc -pw sds jjung"
+kadmin.local -q "addprinc -pw sds jpark"
+kadmin.local -q "addprinc -pw sds jjoo"
 echo  "Done "
 
-while [ true ];  do  sleep 5 ; done
+echo  "Done "
+
+/bin/bash
+#while [ true ];  do  sleep 5 ; done
 
