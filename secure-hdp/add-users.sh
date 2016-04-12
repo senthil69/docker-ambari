@@ -39,6 +39,28 @@ objectClass: posixGroup
 cn: sdsdev
 gidNumber: 5003
 
+dn: cn=hdfs,ou=PosixGroups,$BASE_DN
+objectClass: posixGroup
+cn: hdfs
+gidNumber: 5004
+
+dn: uid=keyadmin2,ou=People,$BASE_DN
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: person
+uid: keyadmin2
+sn: keyadmin2
+givenName: keyadmin2
+cn: Key Admin 2
+displayName: Key Admin 2
+uidNumber: 10100
+gidNumber: 5004
+userPassword: $DPWD
+gecos: Key Admin2
+loginShell: /bin/bash
+homeDirectory: /home/keyadmin2
 
 dn: uid=john,ou=People,$BASE_DN
 objectClass: inetOrgPerson
