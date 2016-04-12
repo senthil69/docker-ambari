@@ -117,6 +117,7 @@ kadmin.local -q "addprinc -x dn=uid=jkim,ou=People,$BASE_DN -pw sds jkim"
 kadmin.local -q "addprinc -x dn=uid=jjung,ou=People,$BASE_DN -pw sds jjung"
 kadmin.local -q "addprinc -x dn=uid=jpark,ou=People,$BASE_DN -pw sds jpark"
 kadmin.local -q "addprinc -x dn=uid=jjoo,ou=People,$BASE_DN -pw sds jjoo"
+kadmin.local -q "addprinc -x dn=uid=keyadmin2,ou=People,$BASE_DN -pw keyadmin2 keyadmin2"
 echo  "Done "
 
 /bin/bash
